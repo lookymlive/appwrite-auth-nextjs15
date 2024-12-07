@@ -7,7 +7,6 @@ import React from "react";
 const SignIn = async () => {
   const user = await getLoggedInUser();
 
-  // If user is already logged in, redirect to home
   if (user) {
     redirect('/');
   }
@@ -26,7 +25,7 @@ const SignIn = async () => {
             </div>      
         </section>
     </div>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

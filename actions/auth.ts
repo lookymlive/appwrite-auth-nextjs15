@@ -187,18 +187,24 @@ export async function signOut(): Promise<void> {
   try {
     const sessionClient = await createSessionClient();
     if (!sessionClient) {
-      redirect("/sign-in");
       return;
     }
     
     const { account } = sessionClient;
     const cookieStore = await cookies();
-    cookieStore.delete("appwrite-session");
-    await account.deleteSession("current");
     
-    redirect("/sign-in");
+    // Delete cookie first for immediate client-side effect
+    cookieStore.delete("appwrite-session");
+    
+    // Then delete the session in Appwrite
+    try {
+      await account.deleteSession("current");
+    } catch (error) {
+      console.error('Error deleting Appwrite session:', error);
+      // Continue even if Appwrite session deletion fails
+    }
   } catch (error) {
     console.error('Error signing out:', error);
-    redirect("/sign-in");
+    throw error;
   }
 }
