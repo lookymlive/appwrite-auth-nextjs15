@@ -1,7 +1,16 @@
+import { getLoggedInUser } from "@/actions/auth";
 import SignUpForm from "@/components/SignUpForm"
 import Link from "next/link"
+import { redirect } from "next/navigation";
+import React from "react";
 
-const SignUp = () => {
+const SignUp: React.FunctionComponent = async () => {
+  const user = await getLoggedInUser();
+
+  // If user is already logged in, redirect to home
+  if (user) {
+    redirect('/');
+  }
   return (
     <div className="w-full min-h-[80vh] flex items-center justify-center px-4">
       <section className="w-full max-w-md">

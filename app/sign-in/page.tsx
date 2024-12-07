@@ -1,6 +1,6 @@
+import { getLoggedInUser } from "@/actions/auth";
 import LoginForm from "@/components/LoginForm"
 import Link from "next/link"
-import { getLoggedInUser } from "@/actions/auth";
 import { redirect } from "next/navigation";
 import React from "react";
 
