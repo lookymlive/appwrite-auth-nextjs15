@@ -9,9 +9,11 @@ type SignUpSuccess = {
   userId: string;
   username: string;
   email: string;
-  $collectionId: string;
+  $id: string;
   $createdAt: string;
+  $updatedAt: string;
   $databaseId: string;
+  $collectionId: string;
 };
 
 type SignUpError = {

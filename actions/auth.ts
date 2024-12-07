@@ -24,7 +24,7 @@ export const getUserDetails = async (userId: string) => {
   try {
     const { database } = await createAdminClient();
 
-    const user = await database.listDocuments(process.env.DATABASE_ID!, process.env.USERS_COLLECTION_ID!, [Query.equal("userId", userId)]);
+    const user = await database.listDocuments(process.env.DATABASE_ID!, process.env.USERS_COLLECTION_ID!, [Query.equal("userid", userId)]);
 
     return JSON.stringify(user.documents[0]);
   } catch (error: any) {
@@ -44,7 +44,7 @@ export async function getLoggedInUser(): Promise<UserDetails | null> {
       if (userDetailsStr) {
         const userDetails = JSON.parse(userDetailsStr);
         return {
-          userId: userDetails.userId,
+          userId: userDetails.userid,
           username: userDetails.username,
           email: userDetails.email,
           $id: userDetails.$id,
@@ -109,10 +109,9 @@ export async function signUp(formData: FormData): Promise<SignUpResponse> {
       process.env.USERS_COLLECTION_ID!,
       ID.unique(),
       {
-        userId: newUserAccount.$id,
-        name: username,
-        email: email,
+        userid: newUserAccount.$id,
         username: username,
+        email: email
       }
     );
 
